@@ -19,3 +19,9 @@ int main(void)
  mlx_hook(mlx_win, KeyPress, KeyPressMask, event_handler, mlx);
  mlx_loop(mlx);
 }
+
+#include "include/camera.h"
+
+void	loop_something(t_camera cam){
+	cam.ori.x
+}
