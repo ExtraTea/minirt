@@ -13,4 +13,8 @@ typedef struct s_rgb{
 	int b;
 }t_rgb;
 
+double vec3_dot(t_vec3 a, t_vec3 b);
+t_vec3 vec3_sub(t_vec3 a, t_vec3 b);
+t_vec3 vec3_cross(t_vec3 a, t_vec3 b);
+
 #endif
