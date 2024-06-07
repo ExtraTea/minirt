@@ -1,10 +1,6 @@
 #include "../include/minirt.h"
 #include "../include/vector.h"
 
-double vec3_dot(t_vec3 a, t_vec3 b){
-	return (a.x * b.x + a.y * b.y + a.z * b.z);
-}
-
 t_vec3 vec3_sub(t_vec3 a, t_vec3 b){
 	t_vec3 ret;
 
@@ -23,6 +19,10 @@ t_vec3 vec3_normalize(t_vec3 a){
 	ret.y = a.y / l;
 	ret.z = a.z / l;
 	return (ret);	
+}
+
+double vec3_dot(t_vec3 a, t_vec3 b){
+	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
 t_vec3 vec3_cross(t_vec3 a, t_vec3 b){

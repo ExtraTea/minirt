@@ -5,7 +5,7 @@
 
 #include "../include/minirt.h"
 #include "../include/camera.h"
-void	loop_something(t_camera cam, t_mlx_data *data, t_plane plane);
+void	loop_something(t_camera cam, t_mlx_data *data, t_plane plane, t_sphere t_sphere);
 
 int main(void)
 {
@@ -23,7 +23,7 @@ int main(void)
 	cam.ori.y = -0.0f;
 	cam.ori.z = 1.0f;
 	cam.pos.x = 0;
-	cam.pos.y = 100.0f;
+	cam.pos.y = 1.0f;
 	cam.pos.z = 0;
 
 	t_plane plane;
@@ -37,15 +37,16 @@ int main(void)
 	plane.norm.y = 1.0f;
 	plane.norm.z = 0;
 
-	// t_sphere sphere;
-	// sphere.center.x = 0;
-	// sphere.center.y = 2.0f;
-	// sphere.center.z = 2.0f;
-	// sphere.color.r = 128;
-	// sphere.color.g = 128;
-	// sphere.color.b = 128;
+	t_sphere sphere;
+	sphere.center.x = 0;
+	sphere.center.y = 2.0f;
+	sphere.center.z = 3.0f;
+	sphere.color.r = 128;
+	sphere.color.g = 128;
+	sphere.color.b = 128;
+	sphere.r = 1.5f;
 	
-	loop_something(cam, &mlx_data, plane);
+	loop_something(cam, &mlx_data, plane, sphere);
 	mlx_loop(mlx_data.mlx);
 
 }
@@ -59,9 +60,27 @@ void	my_mlx_pixel_put(t_data_img *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+int is_collide_sphere(t_camera cam, t_vec3 ray, t_sphere sphere){
+	double a = vec3_dot(ray, ray);
+	double b = 2 * (vec3_dot(cam.pos, ray) - vec3_dot(ray, sphere.center));
+	double c = -2 * vec3_dot(cam.pos, sphere.center) + vec3_dot(sphere.center, sphere.center) + vec3_dot(cam.pos, cam.pos) - sphere.r * sphere.r;
 
+	if (b * b - 4 * a * c >= 0){
+		return (1);
+	}
+	else{
+		return (0);
+	}
+}
 
-void	loop_something(t_camera cam, t_mlx_data *data, t_plane plane){
+int is_collide_plane(t_camera cam, t_vec3 ray, t_plane plane){
+	if ((vec3_dot(vec3_sub(plane.point, cam.pos), plane.norm) / vec3_dot(ray, plane.norm)) > 0) //衝突
+		return (1);
+	else
+		return (0);
+}
+
+void	loop_something(t_camera cam, t_mlx_data *data, t_plane plane, t_sphere sphere){
 	double fov_d = (double)cam.fov * M_PI / 180.0f;
 	t_vec3 ray_ori;
 	t_vec3 y_axis;
@@ -80,7 +99,9 @@ void	loop_something(t_camera cam, t_mlx_data *data, t_plane plane){
 			ray.y = 2 * tan(fov_d/2) / (double)WIDTH * (double)(i - WIDTH/2);
 			ray.z = 1;
 			ray = rotate_matrix(rotation_matrix, ray);
-			if ((vec3_dot(vec3_sub(plane.point, cam.pos), plane.norm) / vec3_dot(ray, plane.norm)) > 0) //衝突
+			if (is_collide_sphere(cam, ray, sphere))
+				my_mlx_pixel_put(&data->img, j, HEIGHT - 1 - i, 0x0000FF00); //緑
+			else if (is_collide_plane(cam, ray, plane)) //衝突
 				my_mlx_pixel_put(&data->img, j, HEIGHT - 1 - i, 0x000000FF); //青
 			else
 				my_mlx_pixel_put(&data->img, j, HEIGHT - 1 - i, 0x0);
