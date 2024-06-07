@@ -20,10 +20,10 @@ int main(void)
 	t_camera cam;
 	cam.fov = 120;
 	cam.ori.x = 0;
-	cam.ori.y = 0;
+	cam.ori.y = -0.0f;
 	cam.ori.z = 1.0f;
 	cam.pos.x = 0;
-	cam.pos.y = 1.0f;
+	cam.pos.y = 100.0f;
 	cam.pos.z = 0;
 
 	t_plane plane;
@@ -36,6 +36,14 @@ int main(void)
 	plane.norm.x = 0;
 	plane.norm.y = 1.0f;
 	plane.norm.z = 0;
+
+	// t_sphere sphere;
+	// sphere.center.x = 0;
+	// sphere.center.y = 2.0f;
+	// sphere.center.z = 2.0f;
+	// sphere.color.r = 128;
+	// sphere.color.g = 128;
+	// sphere.color.b = 128;
 	
 	loop_something(cam, &mlx_data, plane);
 	mlx_loop(mlx_data.mlx);
@@ -55,26 +63,27 @@ void	my_mlx_pixel_put(t_data_img *data, int x, int y, int color)
 
 void	loop_something(t_camera cam, t_mlx_data *data, t_plane plane){
 	double fov_d = (double)cam.fov * M_PI / 180.0f;
-	double aspect_ratio = (double)WIDTH / (double)HEIGHT;
 	t_vec3 ray_ori;
+	t_vec3 y_axis;
+	y_axis.x = 0;
+	y_axis.y = 1;
+	y_axis.z = 0;
+	t_vec3 neo_x = vec3_cross(cam.ori, y_axis);
+	t_vec3 neo_y = vec3_cross(neo_x, cam.ori);
+	t_sqmatrix3 rotation_matrix = vec3_get_rotation_matrix(neo_x, neo_y, cam.ori);
 	int i = 0;
 	while (i < HEIGHT){
 		int j = 0;
 		while (j < WIDTH){
-			double theta = (double)(j - WIDTH / 2) * (fov_d / (double)WIDTH);
-			t_vec3 y_axis;
-			y_axis.x = 0;
-			y_axis.y = 1;
-			y_axis.z = 0;
-			t_vec3 neo_x = vec3_cross(cam.ori, y_axis);
-			t_vec3 neo_y = vec3_cross(neo_x, cam.ori);
-			
-			
-			printf("%lf\n", (vec3_dot(vec3_sub(plane.point, cam.pos), plane.norm) / vec3_dot(ray_ori, plane.norm)));
-			if ((vec3_dot(vec3_sub(plane.point, cam.pos), plane.norm) / vec3_dot(ray_ori, plane.norm)) > 0)
-				my_mlx_pixel_put(&data->img, j, i, 0x000000FF);
+			t_vec3 ray;
+			ray.x = 2 * tan(fov_d/2) / (double)WIDTH * (double)(j - WIDTH/2);
+			ray.y = 2 * tan(fov_d/2) / (double)WIDTH * (double)(i - WIDTH/2);
+			ray.z = 1;
+			ray = rotate_matrix(rotation_matrix, ray);
+			if ((vec3_dot(vec3_sub(plane.point, cam.pos), plane.norm) / vec3_dot(ray, plane.norm)) > 0) //衝突
+				my_mlx_pixel_put(&data->img, j, HEIGHT - 1 - i, 0x000000FF); //青
 			else
-				my_mlx_pixel_put(&data->img, j, i, 0x0);
+				my_mlx_pixel_put(&data->img, j, HEIGHT - 1 - i, 0x0);
 			j++;
 		}
 		i++;
@@ -82,40 +91,3 @@ void	loop_something(t_camera cam, t_mlx_data *data, t_plane plane){
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.img, 0, 0);
 	mlx_loop(data->mlx);
 }
-
-/* void loop_something(t_camera cam, t_mlx_data *data, t_plane plane) {
-    double fov_d = (double)cam.fov * M_PI / 180.0f;
-    double aspect_ratio = (double)WIDTH / (double)HEIGHT;
-    t_vec3 ray_dir;
-    int i = 0;
-    while (i < HEIGHT) {
-        int j = 0;
-        double elev_angle = (double)(i - HEIGHT / 2) * (fov_d / HEIGHT);
-        while (j < WIDTH) {
-            double theta = (double)(j - WIDTH / 2) * (fov_d * aspect_ratio / WIDTH);
-            
-            // カメラ方向に基づくレイの計算
-            ray_dir.x = cam.dir.x + cos(elev_angle) * sin(theta);
-            ray_dir.y = cam.dir.y + sin(elev_angle);
-            ray_dir.z = cam.dir.z + cos(elev_angle) * cos(theta);
-
-            // レイと平面の交点の計算
-            t_vec3 ray_ori = cam.pos;
-            double denom = vec3_dot(ray_dir, plane.norm);
-            if (fabs(denom) > 1e-6) {
-                double t = vec3_dot(vec3_sub(plane.point, ray_ori), plane.norm) / denom;
-                if (t > 0) {
-                    my_mlx_pixel_put(&data->img, j, i, 0x000000FF);
-                } else {
-                    my_mlx_pixel_put(&data->img, j, i, 0x0);
-                }
-            } else {
-                my_mlx_pixel_put(&data->img, j, i, 0x0);
-            }
-            j++;
-        }
-        i++;
-    }
-    mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.img, 0, 0);
-    mlx_loop(data->mlx);
-} */
