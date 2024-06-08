@@ -5,7 +5,7 @@
 
 #include "../include/minirt.h"
 #include "../include/camera.h"
-void	loop_something(t_camera cam, t_mlx_data *data, t_plane plane, t_sphere t_sphere);
+void	loop_something(t_camera cam, t_mlx_data *data, t_plane plane, t_sphere sphere, t_ambient ambient);
 
 int main(void)
 {
@@ -45,8 +45,14 @@ int main(void)
 	sphere.color.g = 128;
 	sphere.color.b = 128;
 	sphere.r = 1.5f;
+
+	t_ambient ambient;
+	ambient.ratio = 1.0f;
+	ambient.color.r = 0;
+	ambient.color.g = 128;
+	ambient.color.b = 128;
 	
-	loop_something(cam, &mlx_data, plane, sphere);
+	loop_something(cam, &mlx_data, plane, sphere, ambient);
 	mlx_loop(mlx_data.mlx);
 
 }
@@ -80,7 +86,7 @@ int is_collide_plane(t_camera cam, t_vec3 ray, t_plane plane){
 		return (0);
 }
 
-void	loop_something(t_camera cam, t_mlx_data *data, t_plane plane, t_sphere sphere){
+void	loop_something(t_camera cam, t_mlx_data *data, t_plane plane, t_sphere sphere, t_ambient ambient){
 	double fov_d = (double)cam.fov * M_PI / 180.0f;
 	t_vec3 ray_ori;
 	t_vec3 y_axis;
@@ -101,7 +107,7 @@ void	loop_something(t_camera cam, t_mlx_data *data, t_plane plane, t_sphere sphe
 			ray = rotate_matrix(rotation_matrix, ray);
 			if (is_collide_sphere(cam, ray, sphere))
 				my_mlx_pixel_put(&data->img, j, HEIGHT - 1 - i, 0x0000FF00); //緑
-			else if (is_collide_plane(cam, ray, plane)) //衝突
+			else if (is_collide_plane(cam, ray, plane))
 				my_mlx_pixel_put(&data->img, j, HEIGHT - 1 - i, 0x000000FF); //青
 			else
 				my_mlx_pixel_put(&data->img, j, HEIGHT - 1 - i, 0x0);
