@@ -4,10 +4,14 @@
 #include <mlx.h>
 #include <math.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include "../libft/libft.h"
 
 #include "vector.h"
 #include "object.h"
 #include "light.h"
+#include "camera.h"
 
 # ifndef DEBUG
 #  define DEBUG 0
@@ -36,11 +40,12 @@ typedef struct s_obj{
 	struct s_obj *next;
 }t_obj;
 
-typedef struct s_environment{
-	t_ambient ambient;
-	t_light	light;
-	t_camera cam;
-	t_obj	*obj;
-}t_environment;
+typedef struct	s_environment
+{
+	t_ambient	*ambient;
+	t_light		*light;
+	t_camera	*cam;
+	t_obj		*obj;
+}	t_environment;
 
 #endif
