@@ -3,6 +3,9 @@
 		"cmath": "c",
 		"camera.h": "c",
 		"minirt.h": "c",
-		"math.h": "c"
+		"math.h": "c",
+		"random": "c",
+		"limits": "c",
+		"algorithm": "c"
 	}
 }
