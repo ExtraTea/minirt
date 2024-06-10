@@ -4,10 +4,13 @@
 #include <mlx.h>
 #include <math.h>
 #include <stdlib.h>
+#include <limits.h>
+#include <float.h>
 
 #include "vector.h"
 #include "object.h"
 #include "light.h"
+#include "camera.h"
 
 # ifndef DEBUG
 #  define DEBUG 0
