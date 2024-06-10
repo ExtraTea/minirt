@@ -10,6 +10,22 @@ t_vec3 vec3_sub(t_vec3 a, t_vec3 b){
 	return (ret);
 }
 
+t_vec3 vec3_mul(t_vec3 a, double n){
+	t_vec3 r;
+	r.x = a.x * n;
+	r.y = a.y * n;
+	r.z = a.z * n;
+
+	return (r);
+}
+
+t_vec3 vec3_sum(t_vec3 a, t_vec3 b){
+	a.x += b.x;
+	a.y += b.y;
+	a.z += b.z;
+	return (a);
+}
+
 t_vec3 vec3_normalize(t_vec3 a){
 	double l;
 	t_vec3 ret;
@@ -30,7 +46,7 @@ t_vec3 vec3_cross(t_vec3 a, t_vec3 b){
 
 	ret.x = a.y * b.z - a.z * b.y;
 	ret.y = a.z * b.x - a.x * b.z;
-	ret.z = a.x * a.y - a.y * b.x;
+	ret.z = a.x * b.y - a.y * b.x;
 	return (ret);
 }
 
