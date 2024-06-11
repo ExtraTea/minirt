@@ -4,6 +4,9 @@
 #include <mlx.h>
 #include <math.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include "../libft/libft.h"
 #include <limits.h>
 #include <float.h>
 
@@ -16,8 +19,8 @@
 #  define DEBUG 0
 # endif
 
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 1920
+# define HEIGHT 1080
 
 typedef struct s_data_img{
 	void	*img;
@@ -39,11 +42,12 @@ typedef struct s_obj{
 	struct s_obj *next;
 }t_obj;
 
-typedef struct s_environment{
-	t_ambient ambient;
-	t_light	light;
-	t_camera cam;
-	t_obj	*obj;
-}t_environment;
+typedef struct	s_environment
+{
+	t_ambient	*ambient;
+	t_light		*light;
+	t_camera	*cam;
+	t_obj		*obj;
+}	t_environment;
 
 #endif

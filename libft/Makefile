@@ -70,10 +70,10 @@ $(LIBNAME): $(OBJECTS)
 
 # 'make clean' を実行した時に掃除する
 clean:
-	rm -f $(BASIC_SOURCES:.c=.o) $(BONUSES:.c=.o)
+	@rm -f $(BASIC_SOURCES:.c=.o) $(BONUSES:.c=.o)
 
 fclean: clean
-	rm -f $(LIBNAME)
+	@rm -f $(LIBNAME)
 
 re: fclean all
 

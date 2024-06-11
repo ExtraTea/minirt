@@ -2,3 +2,4 @@ en.subject.pdf
 *.o
 *.a
 .DS_Store
+test
