@@ -6,6 +6,9 @@
 		"math.h": "c",
 		"random": "c",
 		"limits": "c",
-		"algorithm": "c"
+		"algorithm": "c",
+		"libft.h": "c",
+		"read.h": "c",
+		"fcntl.h": "c"
 	}
 }
