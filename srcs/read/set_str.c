@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_str.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuhiro <kazuhiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:10:14 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/11 04:12:02 by kazuhiro         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:17:32 by kazokada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ t_environment	*set_ambient(t_environment *env, char **arr)
 	amb->ratio = ft_atod(arr[1]);
 	amb->color = ato_rgb(arr[2]);
 	env->ambient = amb;
+	if (check_01(amb->ratio) == false || check_coler(amb->color) == false)
+	{
+		free_env(env);
+		return (NULL);
+	}
 	return (env);
 }
 
@@ -50,6 +55,11 @@ t_environment	*set_camera(t_environment *env, char **arr)
 	camera->ori = ato_vec3(arr[2]);
 	camera->fov = ato_fov(arr[3]);
 	env->cam = camera;
+	if (check_norm(camera->ori) == false || check_fov(camera->fov) == false)
+	{
+		free_env(env);
+		return (NULL);
+	}
 	return (env);
 }
 
@@ -80,6 +90,11 @@ t_environment	*set_light(t_environment *env, char **arr)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = light;
+	}
+	if (check_01(light->ratio) == false || check_coler(light->color) == false)
+	{
+		free_env(env);
+		return (NULL);
 	}
 	return (env);
 }
@@ -116,6 +131,11 @@ t_environment	*set_sphere(t_environment *env, char **arr)
 			tmp = tmp->next;
 		tmp->next = obj;
 	}
+	if (check_coler(sp->color) == false)
+	{
+		free_env(env);
+		return (NULL);
+	}
 	return (env);
 }
 
@@ -150,6 +170,11 @@ t_environment	*set_plane(t_environment *env, char **arr)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = obj;
+	}
+	if (check_norm(pl->norm) == false || check_coler(pl->color) == false)
+	{
+		free_env(env);
+		return (NULL);
 	}
 	return (env);
 }
@@ -187,6 +212,11 @@ t_environment	*set_cylinder(t_environment *env, char **arr)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = obj;
+	}
+	if (check_coler(cy->color) == false || check_norm(cy->axis) == false)
+	{
+		free_env(env);
+		return (NULL);
 	}
 	return (env);
 }

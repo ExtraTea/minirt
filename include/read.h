@@ -23,5 +23,10 @@ int				ato_fov(char	*str);
 void			free_arr(char **arr);
 t_rgb			ato_rgb(char *str);
 t_vec3			ato_vec3(char *str);
+void			print_env(t_environment *env);
+bool			check_01(double num);
+bool			check_coler(t_rgb rgb);
+bool			check_norm(t_vec3 vet3);
+bool			check_fov(double num);
 
 #endif
