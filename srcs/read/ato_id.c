@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ato_id.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuhiro <kazuhiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:44:00 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/11 02:57:38 by kazuhiro         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:36:11 by kazokada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ato_color(char	*str)
 	int	i;
 
 	i = 0;
-	while (*str)
+	while (*str && *str != '\n')
 	{
 		i = (*str - '0') + i * 10;
 		if (i < 0 || 255 < i || !ft_isdigit(*str))
@@ -87,7 +87,7 @@ int	ato_fov(char	*str)
 	int	i;
 
 	i = 0;
-	while (*str)
+	while (*str && *str != '\n')
 	{
 		i = (*str - '0') + i * 10;
 		if (i < 0 || 180 < i || !ft_isdigit(*str))

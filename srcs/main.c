@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <X11/X.h>
-#include <X11/keysym.h>
+// #include <X11/X.h>
+// #include <X11/keysym.h>
 #include "mlx.h"
 
 #include "../include/minirt.h"

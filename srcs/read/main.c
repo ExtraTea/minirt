@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuhiro <kazuhiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:19:24 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/11 04:13:41 by kazuhiro         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:37:12 by kazokada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,14 +168,13 @@ int	main(int ac, char **av)
 		write(2, "input correct arg\n", 19);
 		return (1);
 	}
-	if (ac == 2)
-		env = make_env(av[1]);
+	env = make_env(av[1]);
 	if (!env)
 	{
 		write(2, "input correct file\n", 20);
 		return (1);
 	}
-	//dtakamat ganbatte
+	print_env(env);
 	free_env(env);
 	return (0);
 }
