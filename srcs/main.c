@@ -27,7 +27,7 @@ void	loop_something(t_mlx_data *data, t_environment *env);
 // 	return (0);
 // }
 
-int main(void)
+int amain(void)
 {
 	t_mlx_data	mlx_data;
 
@@ -48,19 +48,19 @@ int main(void)
 	env->cam = (t_camera *)malloc(sizeof(t_camera));
 	env->cam->fov = 120;
 	env->cam->ori.x = 0;
-	env->cam->ori.y = -0.50f;
-	env->cam->ori.z = 1.0f;
-	env->cam->pos.x = 0;
-	env->cam->pos.y = 5.0f;
-	env->cam->pos.z = -2.0f; 
+	env->cam->ori.y = 0.0f;
+	env->cam->ori.z = 10.0f;
+	env->cam->pos.x = -3.0f;
+	env->cam->pos.y = 4.0f;
+	env->cam->pos.z = -8.0f; 
 
 	env->light = (t_light *)malloc(sizeof(t_light));
 	env->light->color.r = 255;
 	env->light->color.g = 255;
 	env->light->color.b = 255;
-	env->light->pos.x = 3.0f;
-	env->light->pos.y = 30.0f;
-	env->light->pos.z = 3.0f;
+	env->light->pos.x = -3.0f;
+	env->light->pos.y = 10.2001f;
+	env->light->pos.z = 0.0f;
 	env->light->ratio = 1.0;
 
 	t_plane plane;
@@ -75,20 +75,20 @@ int main(void)
 	plane.norm.z = 0;
 
 	t_sphere sphere;
-	sphere.center.x = 0;
-	sphere.center.y = 2.0f;
-	sphere.center.z = 3.0f;
+	sphere.center.x = -3.0f;
+	sphere.center.y = 4.0f;
+	sphere.center.z = 0.0f;
 	sphere.color.r = 255;
 	sphere.color.g = 255;
 	sphere.color.b = 255;
-	sphere.r = 2.0f;
+	sphere.r = 1.5f;
 
 	t_sphere sphere2;
-	sphere2.center.x = 0;
-	sphere2.center.y = 4.0f;
-	sphere2.center.z = 3.0f;
+	sphere2.center.x = -3.0f;
+	sphere2.center.y = 2.0f;
+	sphere2.center.z = 0.0f;
 	sphere2.color.r = 255;
-	sphere2.color.g = 128;
+	sphere2.color.g = 255;
 	sphere2.color.b = 255;
 	sphere2.r = 1.5f;
 
@@ -117,41 +117,46 @@ void	my_mlx_pixel_put(t_data_img *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-double is_collide_sphere(t_vec3 cam_pos, t_vec3 ray, t_sphere *sphere, t_vec3 *norm){
-	double a = vec3_dot(ray, ray);
-	double b = 2 * (vec3_dot(cam_pos, ray) - vec3_dot(ray, sphere->center));
-	double c = -2 * vec3_dot(cam_pos, sphere->center) + vec3_dot(sphere->center, sphere->center) + vec3_dot(cam_pos, cam_pos) - sphere->r * sphere->r;
-	double t;
+double is_collide_sphere(t_vec3 cam_pos, t_vec3 ray, t_sphere *sphere, t_vec3 *norm) {
+    t_vec3 oc = vec3_sub(cam_pos, sphere->center);
+    double a = vec3_dot(ray, ray);
+    double b = 2.0 * vec3_dot(oc, ray);
+    double c = vec3_dot(oc, oc) - sphere->r * sphere->r;
+    double discriminant = b * b - 4 * a * c;
 
-	if (b * b - 4 * a * c >= 0){
-		t = (-b - sqrt(b * b - 4 * a * c)) / (2 * a);
-		if (t <= 0){
-			t = (-b + sqrt(b * b - 4 * a * c)) / (2 * a);
-			if (t <= 0){
-				return (-1.0f);
-			}
-			else{
-				*norm = vec3_normalize(vec3_sub(vec3_sum(cam_pos, vec3_mul(ray, t)), sphere->center));
-				return (t);
-			}
-		}
-		else{
-			*norm = vec3_normalize(vec3_sub(vec3_sum(cam_pos, vec3_mul(ray, t)), sphere->center));
-			return (t);
-		}
-	}
-	else{
-		return (-1.0f);
-	}
+    if (discriminant >= 0) {
+        double sqrt_discriminant = sqrt(discriminant);
+        double t1 = (-b - sqrt_discriminant) / (2.0 * a);
+        double t2 = (-b + sqrt_discriminant) / (2.0 * a);
+
+        if (t1 > EPSILON) {
+            t_vec3 hit_point = vec3_sum(cam_pos, vec3_mul(ray, t1));
+            *norm = vec3_normalize(vec3_sub(hit_point, sphere->center));
+            return t1;
+        } else if (t2 > EPSILON) {
+            t_vec3 hit_point = vec3_sum(cam_pos, vec3_mul(ray, t2));
+            *norm = vec3_normalize(vec3_sub(hit_point, sphere->center));
+            return t2;
+        }
+    }
+    return -1.0;
 }
 
 double is_collide_plane(t_vec3 cam_pos, t_vec3 ray, t_plane* plane, t_vec3 *norm){
 	double t;
 
 	t = (vec3_dot(vec3_sub(plane->point, cam_pos), plane->norm) / vec3_dot(ray, plane->norm));
-	norm->x = plane->norm.x;
-	norm->y = plane->norm.y;
-	norm->z = plane->norm.z; 
+	if (vec3_dot(ray, plane->norm) < 0){
+		norm->x = plane->norm.x;
+		norm->y = plane->norm.y;
+		norm->z = plane->norm.z; 
+	}
+	else{
+		norm->x = -plane->norm.x;
+		norm->y = -plane->norm.y;
+		norm->z = -plane->norm.z; 
+	}
+	
 	if (t > 0) //衝突
 		return (t);
 	else
@@ -226,6 +231,10 @@ t_rgb get_diffuse_color(t_vec3 ray, t_environment *env, double t, t_vec3 norm, t
 	t_rgb ret;
 	t_vec3 point = vec3_sum(vec3_mul(ray, t), env->cam->pos);
 
+	if (vec3_dot(ray, norm) > 0) {
+        norm = vec3_mul(norm, -1);
+    }
+
 	if (vec3_dot(vec3_sub(env->light->pos, point), norm) <= 0){
 		ret.r = 0;
 		ret.g = 0;
@@ -295,16 +304,16 @@ void	loop_something(t_mlx_data *data, t_environment *env){
 	y_axis.x = 0;
 	y_axis.y = 1;
 	y_axis.z = 0;
-	t_vec3 neo_x = vec3_cross(env->cam->ori, y_axis);
-	t_vec3 neo_y = vec3_cross(neo_x, env->cam->ori);
-	t_sqmatrix3 rotation_matrix = vec3_get_rotation_matrix(neo_x, neo_y, env->cam->ori);
+	t_vec3 neo_x = vec3_normalize(vec3_cross(y_axis, env->cam->ori));
+	t_vec3 neo_y = vec3_normalize(vec3_cross(env->cam->ori, neo_x));
+	t_sqmatrix3 rotation_matrix = vec3_get_rotation_matrix(neo_x, neo_y, vec3_normalize(env->cam->ori));
 	int i = 0;
 	while (i < HEIGHT){
 		int j = 0;
 		while (j < WIDTH){
 			t_vec3 ray;
-			ray.x = 2 * tan(fov_d/2) / (double)WIDTH * (double)(j - WIDTH/2);
-			ray.y = 2 * tan(fov_d/2) / (double)WIDTH * (double)(i - HEIGHT/2);
+			ray.x = 2 * tan(fov_d/2 * (double)(j - WIDTH/2) / (double)WIDTH);
+			ray.y = 2 * tan(fov_d/2 * (double)(i - HEIGHT/2) / (double)WIDTH);
 			ray.z = 1;
 			ray = rotate_matrix(rotation_matrix, ray);
 			color = get_color4ray(ray, env);

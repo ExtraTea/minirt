@@ -62,11 +62,11 @@ all: $(LIBNAME)
 
 # 静的ライブラリを作成
 $(LIBNAME): $(OBJECTS)
-	ar rcs $@ $(OBJECTS)
+	@ar rcs $@ $(OBJECTS)
 
 # ソースファイルからオブジェクトファイルをコンパイル
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 # 'make clean' を実行した時に掃除する
 clean:
@@ -79,7 +79,7 @@ re: fclean all
 
 # ボーナスターゲット
 bonus:
-	$(MAKE) all BONUS_FLAG=yes
+	@$(MAKE) all BONUS_FLAG=yes
 
 # ダミーターゲット
 .PHONY: all clean fclean re bonus

@@ -10,7 +10,7 @@ t_rgb	ato_rgb(char *str)
 	arr = ft_split(str, ',');
 	while (arr[i])
 		i ++;
-	if (i != 3)
+	if (i != 3 || (i == 3 && arr[2][0] == '\n'))
 	{
 		rgb.b = COLER_ERROR;
 		rgb.g = COLER_ERROR;
@@ -24,4 +24,3 @@ t_rgb	ato_rgb(char *str)
 	free_arr(arr);
 	return (rgb);
 }
-

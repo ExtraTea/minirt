@@ -19,9 +19,9 @@
 #  define DEBUG 0
 # endif
 
-# define WIDTH 1920
-# define HEIGHT 1080
-
+# define WIDTH 480
+# define HEIGHT 360
+#define EPSILON 1e-6
 typedef struct s_data_img{
 	void	*img;
 	char	*addr;
