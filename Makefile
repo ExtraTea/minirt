@@ -1,4 +1,4 @@
-NAME = minirt
+NAME = miniRT
 
 CC = cc
 
@@ -19,12 +19,19 @@ HEADERS = $(wildcard $(INCLUDES_DIR)/*.h)
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS) libft/libft.a
-	
-	$(CC) $(CFLAGS) $(OBJECTS) $(LIBXFLAGS) -o $(NAME) libft/libft.a
+$(NAME): $(OBJECTS) libft/libft.a	
+	@echo $(GREEN)
+	@echo "╭━╮╭━╮╱╱╱╱╱╱╱╱╭━━━╮╭━━━━╮"
+	@echo "┃┃╰╯┃┃╱╱╱╱╱╱╱╱┃╭━╮┃┃╭╮╭╮┃"
+	@echo "┃╭╮╭╮┃╭╮╭━╮╱╭╮┃╰━╯┃╰╯┃┃╰╯"
+	@echo "┃┃┃┃┃┃┣┫┃╭╮╮┣┫┃╭╮╭╯╱╱┃┃"
+	@echo "┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃╰╮╱╱┃┃"
+	@echo "╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰━╯╱╱╰╯"
+	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBXFLAGS) -o $(NAME) libft/libft.a
+
 
 %.o:%.c $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@ -I$(INCLUDES_DIR) -Imlx
+	@$(CC) $(CFLAGS) -c $< -o $@ -I$(INCLUDES_DIR) -Imlx
 
 
 clean:
@@ -46,7 +53,7 @@ fclean:
 	@echo $(RED)┃╰━━╮$(BRIGHT_MAGENTA) ╭━╮╭╮╱╭━╮╭━━╮╭━┳╮╭━┳╮╭━━╮╭━┳╮╭━━╮
 	@echo $(RED)┃╭━━╯$(BRIGHT_MAGENTA) ┃╭╯┃┃╱┃┳╯┃╭╮┃┃┃┃┃┃┃┃┃╰┃┃╯┃┃┃┃┃╭━┫
 	@echo $(RED)┃┃ $(BRIGHT_MAGENTA) ╱╱┃╰╮┃╰╮┃┻╮┃┣┫┃┃┃┃┃┃┃┃┃╭┃┃╮┃┃┃┃┃╰╮┃╭╮╭╮╭╮
-	@echo $(RED)╰╯ $(BRIGHT_MAGENTA)╱╱ ╰━╯╰━╯╰━╯╰╯╰╯╰┻━╯╰┻━╯╰━━╯╰┻━╯╰━━╯╰╯╰╯╰╯
+	@echo $(RED)╰╯ $(BRIGHT_MAGENTA)╱╱ ╰━╯╰━╯╰━╯╰╯╰╯╰┻━╯╰┻━╯╰━━╯╰┻━╯╰━━╯╰╯╰╯╰╯$(RESET)
 
 
 re: fclean all
@@ -61,7 +68,7 @@ libft.a: libft/libft.a
 	cp libft/libft.a .
 
 libft/libft.a:
-	$(MAKE) -C libft
+	@$(MAKE) -C libft
 
 echo:
 	echo $(SRCS)

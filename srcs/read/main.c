@@ -6,7 +6,7 @@
 /*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:19:24 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/11 18:21:52 by kazokada         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:07:31 by kazokada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,9 @@ t_environment	*make_env_sub(char *file)
 		printf("%s", str);
 		free(str);
 		if (!env)
+		{
 			return (NULL);
+		}
 	}
 	return (env);
 }
@@ -158,6 +160,8 @@ t_environment	*make_env(char *str)
 	if (file_name(str) == false)
 		return (NULL);
 	env = make_env_sub(str);
+	if (!env)
+		return (NULL);
 	if (env->ambient == NULL || env->cam == NULL
 		|| env->light == NULL || env->obj == NULL)
 	{
@@ -167,22 +171,27 @@ t_environment	*make_env(char *str)
 	return (env);
 }
 
-// int	main(int ac, char **av)
-// {
-// 	t_environment	*env;
+int	bmain(int ac, char **av)
+{
+	t_environment	*env;
 
-// 	if (ac != 2)
-// 	{
-// 		write(2, "input correct arg\n", 19);
-// 		return (1);
-// 	}
-// 	env = make_env(av[1]);
-// 	if (!env)
-// 	{
-// 		write(2, "input correct file\n", 20);
-// 		return (1);
-// 	}
-// 	print_env(env);
-// 	free_env(env);
-// 	return (0);
+	if (ac != 2)
+	{
+		write(2, "input correct arg\n", 19);
+		return (1);
+	}
+	env = make_env(av[1]);
+	if (!env)
+	{
+		write(2, "input correct file\n", 20);
+		return (1);
+	}
+	print_env(env);
+	free_env(env);
+	return (0);
+}
+
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q minirt");
 // }
