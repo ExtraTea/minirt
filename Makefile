@@ -3,7 +3,7 @@ NAME = minirt
 CC = cc
 
 CFLAGS =  -Wall -Werror -Wextra
-# CFLAGS += -g -fsanitize=address
+CFLAGS += -g -fsanitize=address
 # LIBXFLAGS = -lmlx_Linux -lXext -lX11  -lm
 # LIBXFLAGS = -lmlx -lXext -lX11  -lm
 LIBXFLAGS = -lmlx -framework OpenGL -framework AppKit

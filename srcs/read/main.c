@@ -6,7 +6,7 @@
 /*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:19:24 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/12 18:34:58 by kazokada         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:07:31 by kazokada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ int	main(int ac, char **av)
 	return (0);
 }
 
-__attribute__((destructor))
-static void destructor() {
-    system("leaks -q minirt");
-}
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q minirt");
+// }
