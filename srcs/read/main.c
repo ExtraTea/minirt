@@ -6,7 +6,7 @@
 /*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:19:24 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/11 18:21:52 by kazokada         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:11:06 by kazokada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,9 @@ t_environment	*make_env_sub(char *file)
 		printf("%s", str);
 		free(str);
 		if (!env)
+		{
 			return (NULL);
+		}
 	}
 	return (env);
 }
@@ -158,6 +160,8 @@ t_environment	*make_env(char *str)
 	if (file_name(str) == false)
 		return (NULL);
 	env = make_env_sub(str);
+	if (!env)
+		return (NULL);
 	if (env->ambient == NULL || env->cam == NULL
 		|| env->light == NULL || env->obj == NULL)
 	{
