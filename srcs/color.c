@@ -41,7 +41,12 @@ int	can_reach_the_light(t_vec3 pos, t_vec3 ray,
 	t_vec3	norm;
 	t_obj	*now;
 
-	max_t = (light_pos.x - pos.x) / ray.x;
+	if (fabs(ray.x) >= 1e-6)
+		max_t = (light_pos.x - pos.x) / ray.x;
+	else if (fabs(ray.y) >= 1e-6)
+		max_t = (light_pos.y - pos.y) / ray.y;
+	else
+		max_t = (light_pos.z - pos.z) / ray.z;
 	now = env->obj;
 	pos = vec3_sum(pos, vec3_mul(ray, 0.001953125f));
 	while (now != NULL)
