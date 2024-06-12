@@ -9,6 +9,12 @@
 		"algorithm": "c",
 		"libft.h": "c",
 		"read.h": "c",
-		"fcntl.h": "c"
+		"fcntl.h": "c",
+		"stdbool.h": "c",
+		"stdlib.h": "c",
+		"limits.h": "c",
+		"vector.h": "c",
+		"light.h": "c",
+		"object.h": "c"
 	}
 }

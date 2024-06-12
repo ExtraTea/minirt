@@ -171,7 +171,7 @@ t_environment	*make_env(char *str)
 	return (env);
 }
 
-int	main(int ac, char **av)
+int	bmain(int ac, char **av)
 {
 	t_environment	*env;
 

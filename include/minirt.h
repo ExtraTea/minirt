@@ -50,4 +50,8 @@ typedef struct	s_environment
 	t_obj		*obj;
 }	t_environment;
 
+t_environment	*make_env(char *str);
+void	free_env(t_environment *env);
+void	print_env(t_environment *env);
+t_sqmatrix3 vec3_get_rotation_matrix(t_environment *env);
 #endif

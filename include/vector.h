@@ -36,7 +36,6 @@ typedef struct s_sqmatrix3
 double vec3_dot(t_vec3 a, t_vec3 b);
 t_vec3 vec3_sub(t_vec3 a, t_vec3 b);
 t_vec3 vec3_cross(t_vec3 a, t_vec3 b);
-t_sqmatrix3 vec3_get_rotation_matrix(t_vec3 x, t_vec3 y, t_vec3 z);
 t_vec3 rotate_matrix(t_sqmatrix3 rotation_matrix, t_vec3 vec);
 t_vec3 vec3_sum(t_vec3 a, t_vec3 b);
 t_vec3 vec3_mul(t_vec3 a, double n);

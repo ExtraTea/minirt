@@ -7,28 +7,9 @@
 #include "../include/camera.h"
 void	loop_something(t_mlx_data *data, t_environment *env);
 
-// int	main(int ac, char **av)
-// {
-// 	t_environment	*env;
-
-// 	if (ac != 2)
-// 	{
-// 		write(2, "input correct arg\n", 19);
-// 		return (1);
-// 	}
-// 	env = make_env(av[1]);
-// 	if (!env)
-// 	{
-// 		write(2, "input correct file\n", 20);
-// 		return (1);
-// 	}
-// 	print_env(env);
-// 	free_env(env);
-// 	return (0);
-// }
-
-int amain(void)
+int	main(int ac, char **av)
 {
+	t_environment	*env;
 	t_mlx_data	mlx_data;
 
 	mlx_data.mlx = mlx_init();
@@ -37,75 +18,16 @@ int amain(void)
 	mlx_data.img.addr = mlx_get_data_addr(mlx_data.img.img, &mlx_data.img.bits_per_pixel,
 			&mlx_data.img.line_length, &mlx_data.img.endian);
 
-	t_environment *env;
-	env = (t_environment *)malloc(sizeof(t_environment));
-	env->ambient = (t_ambient *)malloc(sizeof(t_ambient));
-	env->ambient->ratio = 0.6f;
-	env->ambient->color.r = 255;
-	env->ambient->color.g = 255;
-	env->ambient->color.b = 255;
-
-	env->cam = (t_camera *)malloc(sizeof(t_camera));
-	env->cam->fov = 120;
-	env->cam->ori.x = 0;
-	env->cam->ori.y = 0.0f;
-	env->cam->ori.z = 10.0f;
-	env->cam->pos.x = -3.0f;
-	env->cam->pos.y = 4.0f;
-	env->cam->pos.z = -8.0f; 
-
-	env->light = (t_light *)malloc(sizeof(t_light));
-	env->light->color.r = 255;
-	env->light->color.g = 255;
-	env->light->color.b = 255;
-	env->light->pos.x = -3.0f;
-	env->light->pos.y = 10.2001f;
-	env->light->pos.z = 0.0f;
-	env->light->ratio = 1.0;
-
-	t_plane plane;
-	plane.color.r = 0;
-	plane.color.g = 128;
-	plane.color.b = 0;
-	plane.point.x = 0;
-	plane.point.y = 0;
-	plane.point.z = 0;
-	plane.norm.x = 0;
-	plane.norm.y = 1.0f;
-	plane.norm.z = 0;
-
-	t_sphere sphere;
-	sphere.center.x = -3.0f;
-	sphere.center.y = 4.0f;
-	sphere.center.z = 0.0f;
-	sphere.color.r = 255;
-	sphere.color.g = 255;
-	sphere.color.b = 255;
-	sphere.r = 1.5f;
-
-	t_sphere sphere2;
-	sphere2.center.x = -3.0f;
-	sphere2.center.y = 2.0f;
-	sphere2.center.z = 0.0f;
-	sphere2.color.r = 255;
-	sphere2.color.g = 255;
-	sphere2.color.b = 255;
-	sphere2.r = 1.5f;
-
-	env->obj = (t_obj *)malloc(sizeof (t_obj));
-	env->obj->obj = &plane;
-	env->obj->type = 'p';
-	env->obj->next = (t_obj *)malloc(sizeof (t_obj));
-	env->obj->next->obj = &sphere;
-	env->obj->next->type = 's';
-	env->obj->next->next = (t_obj *)malloc(sizeof (t_obj));
-	env->obj->next->next->obj = &sphere2;
-	env->obj->next->next->type = 's';
-	env->obj->next->next->next = NULL;
-	
+	if (ac != 2)
+		return (write(2, "input correct arg\n", 19), 1);
+	env = make_env(av[1]);
+	if (!env)
+		return (write(2, "input correct file\n", 20), 1);
+	print_env(env);
 	loop_something(&mlx_data, env);
 	mlx_loop(mlx_data.mlx);
-
+	free_env(env);
+	return (0);
 }
 
 void	my_mlx_pixel_put(t_data_img *data, int x, int y, int color)
@@ -139,25 +61,26 @@ double is_collide_sphere(t_vec3 cam_pos, t_vec3 ray, t_sphere *sphere, t_vec3 *n
             return t2;
         }
     }
-    return -1.0;
+    return (-1.0);
 }
 
 double is_collide_plane(t_vec3 cam_pos, t_vec3 ray, t_plane* plane, t_vec3 *norm){
 	double t;
 
 	t = (vec3_dot(vec3_sub(plane->point, cam_pos), plane->norm) / vec3_dot(ray, plane->norm));
-	if (vec3_dot(ray, plane->norm) < 0){
+	if (vec3_dot(ray, plane->norm) < 0)
+	{
 		norm->x = plane->norm.x;
 		norm->y = plane->norm.y;
 		norm->z = plane->norm.z; 
 	}
-	else{
+	else
+	{
 		norm->x = -plane->norm.x;
 		norm->y = -plane->norm.y;
 		norm->z = -plane->norm.z; 
 	}
-	
-	if (t > 0) //衝突
+	if (t > 0)
 		return (t);
 	else
 		return (-1.0f);
@@ -173,10 +96,12 @@ int integer_clip(int num, int min, int max){
 }
 
 int	rgb2hex(t_rgb color){
-	return (integer_clip(color.r, 0, 255) * 256 * 256 + integer_clip(color.g, 0, 255) * 256 + integer_clip(color.b, 0, 255));
+	return (integer_clip(color.r, 0, 255) * 256 * 256 +
+			integer_clip(color.g, 0, 255) * 256 + integer_clip(color.b, 0, 255));
 }
 
-t_rgb get_ambient_color(t_ambient *ambient, t_obj *obj){
+t_rgb get_ambient_color(t_ambient *ambient, t_obj *obj)
+{
 	t_rgb ret;
 
 	if (obj->type == 'p')
@@ -189,7 +114,8 @@ t_rgb get_ambient_color(t_ambient *ambient, t_obj *obj){
 	return (ret);
 }
 
-double is_collide_obj(t_vec3 ray, t_environment *env, t_obj *now, t_vec3 *norm){
+double is_collide_obj(t_vec3 ray, t_environment *env, t_obj *now, t_vec3 *norm)
+{
 	if (now->type == 'p')
 		return (is_collide_plane(env->cam->pos, ray, (t_plane *)(now->obj), norm));
 	else if (now->type == 's')
@@ -198,7 +124,8 @@ double is_collide_obj(t_vec3 ray, t_environment *env, t_obj *now, t_vec3 *norm){
 		return (write(2, "Hi, du****s", 11));
 }
 
-double is_collide_obj2(t_vec3 ray, t_vec3 pos, t_obj *now, t_vec3 *norm){
+double is_collide_obj2(t_vec3 ray, t_vec3 pos, t_obj *now, t_vec3 *norm)
+{
 	if (now->type == 'p')
 		return (is_collide_plane(pos, ray, (t_plane *)(now->obj), norm));
 	if (now->type == 's')
@@ -227,20 +154,24 @@ int can_reach_the_light(t_vec3 pos, t_vec3 ray, t_vec3 light_pos, t_environment 
 	return (1);
 }
 
+t_rgb	assign_color(int a, int b, int c)
+{
+	t_rgb r;
+
+	r.r = a;
+	r.g = b;
+	r.b = c;
+	return (r);
+}
+
 t_rgb get_diffuse_color(t_vec3 ray, t_environment *env, double t, t_vec3 norm, t_obj *obj){
 	t_rgb ret;
 	t_vec3 point = vec3_sum(vec3_mul(ray, t), env->cam->pos);
 
-	if (vec3_dot(ray, norm) > 0) {
+	if (vec3_dot(ray, norm) > 0)
         norm = vec3_mul(norm, -1);
-    }
-
-	if (vec3_dot(vec3_sub(env->light->pos, point), norm) <= 0){
-		ret.r = 0;
-		ret.g = 0;
-		ret.b = 0;
-		return (ret);
-	}
+	if (vec3_dot(vec3_sub(env->light->pos, point), norm) <= 0)
+		return (assign_color(0, 0, 0));
 	if (obj->type == 'p')
 		ret = ((t_plane *)(obj->obj))->color;
 	else if (obj->type == 's')
@@ -251,12 +182,8 @@ t_rgb get_diffuse_color(t_vec3 ray, t_environment *env, double t, t_vec3 norm, t
 		ret.b = (int)((double)env->light->color.b * env->light->ratio * (double)ret.b / 255.0f * vec3_dot(vec3_normalize(norm), vec3_normalize(vec3_sub(env->light->pos, point))));
 		return (ret);
 	}
-	else{
-		ret.r = 0;
-		ret.g = 0;
-		ret.b = 0;
-		return (ret);
-	}
+	else
+		return (assign_color(0, 0, 0));
 }
 
 t_rgb get_full_color(t_vec3 ray, t_environment *env, double t, t_vec3 norm, t_obj *obj){
@@ -270,9 +197,8 @@ t_rgb get_full_color(t_vec3 ray, t_environment *env, double t, t_vec3 norm, t_ob
 	return (a);
 }
 
-
-
-int get_color4ray(t_vec3 ray, t_environment *env){
+int get_color4ray(t_vec3 ray, t_environment *env)
+{
 	double min;
 	double t;
 	int color;
@@ -281,36 +207,33 @@ int get_color4ray(t_vec3 ray, t_environment *env){
 
 	min = DBL_MAX;
 	now = env->obj;
-	while (now != NULL){
+	while (now != NULL)
+	{
 		t = is_collide_obj(ray, env, now, &norm);
-		if (t > 0 && t < min){
+		if (t > 0 && t < min)
+		{
 			min = t;
 			color = rgb2hex(get_full_color(ray, env, t, norm, now));
 		}
 		now = now->next;
 	}
-	if (min == DBL_MAX){
+	if (min == DBL_MAX)
 		color = 0xFF;
-	}
-
 	return (color);
 }
 
-void	loop_something(t_mlx_data *data, t_environment *env){
+void	loop_something(t_mlx_data *data, t_environment *env)
+{
 	double fov_d = (double)env->cam->fov * M_PI / 180.0f;
 	int color;
 
-	t_vec3 y_axis;
-	y_axis.x = 0;
-	y_axis.y = 1;
-	y_axis.z = 0;
-	t_vec3 neo_x = vec3_normalize(vec3_cross(y_axis, env->cam->ori));
-	t_vec3 neo_y = vec3_normalize(vec3_cross(env->cam->ori, neo_x));
-	t_sqmatrix3 rotation_matrix = vec3_get_rotation_matrix(neo_x, neo_y, vec3_normalize(env->cam->ori));
+	t_sqmatrix3 rotation_matrix = vec3_get_rotation_matrix(env);
 	int i = 0;
-	while (i < HEIGHT){
+	while (i < HEIGHT)
+	{
 		int j = 0;
-		while (j < WIDTH){
+		while (j < WIDTH)
+		{
 			t_vec3 ray;
 			ray.x = 2 * tan(fov_d/2 * (double)(j - WIDTH/2) / (double)WIDTH);
 			ray.y = 2 * tan(fov_d/2 * (double)(i - HEIGHT/2) / (double)WIDTH);
