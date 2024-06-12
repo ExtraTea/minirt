@@ -6,7 +6,7 @@
 /*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:19:24 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/12 17:11:06 by kazokada         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:34:58 by kazokada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,4 +189,9 @@ int	main(int ac, char **av)
 	print_env(env);
 	free_env(env);
 	return (0);
+}
+
+__attribute__((destructor))
+static void destructor() {
+    system("leaks -q minirt");
 }
