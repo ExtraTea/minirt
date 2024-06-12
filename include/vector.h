@@ -40,6 +40,6 @@ t_vec3 rotate_matrix(t_sqmatrix3 rotation_matrix, t_vec3 vec);
 t_vec3 vec3_sum(t_vec3 a, t_vec3 b);
 t_vec3 vec3_mul(t_vec3 a, double n);
 t_vec3 vec3_normalize(t_vec3 a);
-
+t_vec3	assign_vec(double x, double y, double z);
 
 #endif
