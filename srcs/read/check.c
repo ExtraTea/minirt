@@ -22,6 +22,8 @@ bool	check_norm(t_vec3 vet3)
 		return (false);
 	if (1 < vet3.z || vet3.z < -1)
 		return (false);
+	if (vet3.x == 0 && vet3.y == 0 && vet3.z == 0)
+		return (false);
 	return (true);
 }
 
