@@ -25,6 +25,8 @@ t_rgb	get_ambient_color(t_ambient *ambient, t_obj *obj)
 		ret = ((t_plane *)(obj->obj))->color;
 	else if (obj->type == 's')
 		ret = ((t_sphere *)(obj->obj))->color;
+	else if (obj->type == 'c')
+		ret = ((t_cylinder *)(obj->obj))->color;
 	ret.r = (int)((double)ambient->color.r
 			* ambient->ratio * (double)ret.r / 255.0f);
 	ret.g = (int)((double)ambient->color.g

@@ -41,5 +41,6 @@ t_vec3 vec3_sum(t_vec3 a, t_vec3 b);
 t_vec3 vec3_mul(t_vec3 a, double n);
 t_vec3 vec3_normalize(t_vec3 a);
 t_vec3	assign_vec(double x, double y, double z);
+double vec_len(t_vec3 a);
 
 #endif
