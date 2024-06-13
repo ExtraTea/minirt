@@ -33,3 +33,10 @@ bool	check_fov(double num)
 		return (false);
 	return (true);
 }
+
+bool	check_vec3(t_vec3 vec3)
+{
+	if (vec3.x == VEC_ERROR || vec3.y == VEC_ERROR || vec3.z == VEC_ERROR)
+		return (false);
+	return (true);
+}

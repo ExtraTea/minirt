@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_str.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kazuhiro <kazuhiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 18:10:14 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/12 19:04:30 by kazokada         ###   ########.fr       */
+/*   Updated: 2024/06/14 00:55:27 by kazuhiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_environment	*set_ambient(t_environment *env, char **arr)
 	amb->ratio = ft_atod(arr[1]);
 	amb->color = ato_rgb(arr[2]);
 	env->ambient = amb;
-	if (check_01(amb->ratio) == false || check_coler(amb->color) == false)
+	if (check_01(amb->ratio) == false || check_coler(amb->color) == false || check_double(arr[1]) == false)
 	{
 		free_env(env);
 		return (NULL);
@@ -55,7 +55,7 @@ t_environment	*set_camera(t_environment *env, char **arr)
 	camera->ori = ato_vec3(arr[2]);
 	camera->fov = ato_fov(arr[3]);
 	env->cam = camera;
-	if (check_norm(camera->ori) == false || check_fov(camera->fov) == false)
+	if (check_norm(camera->ori) == false || check_fov(camera->fov) == false || check_vec3(camera->pos) == false)
 	{
 		free_env(env);
 		return (NULL);
@@ -91,7 +91,7 @@ t_environment	*set_light(t_environment *env, char **arr)
 			tmp = tmp->next;
 		tmp->next = light;
 	}
-	if (check_01(light->ratio) == false || check_coler(light->color) == false)
+	if (check_01(light->ratio) == false || check_coler(light->color) == false || check_vec3(light->pos) == false || check_double(arr[2]) == false)
 	{
 		free_env(env);
 		return (NULL);
@@ -131,7 +131,7 @@ t_environment	*set_sphere(t_environment *env, char **arr)
 			tmp = tmp->next;
 		tmp->next = obj;
 	}
-	if (check_coler(sp->color) == false)
+	if (check_coler(sp->color) == false || check_vec3(sp->center) == false || check_double(arr[2]) == false)
 	{
 		free_env(env);
 		return (NULL);
@@ -171,7 +171,7 @@ t_environment	*set_plane(t_environment *env, char **arr)
 			tmp = tmp->next;
 		tmp->next = obj;
 	}
-	if (check_norm(pl->norm) == false || check_coler(pl->color) == false)
+	if (check_norm(pl->norm) == false || check_coler(pl->color) == false || check_vec3(pl->point) == false)
 	{
 		free_env(env);
 		return (NULL);
@@ -213,7 +213,8 @@ t_environment	*set_cylinder(t_environment *env, char **arr)
 			tmp = tmp->next;
 		tmp->next = obj;
 	}
-	if (check_coler(cy->color) == false || check_norm(cy->axis) == false)
+	if (check_coler(cy->color) == false || check_norm(cy->axis) == false || check_vec3(cy->center) == false
+		|| check_double(arr[3]) == false || check_double(arr[4]) == false)
 	{
 		free_env(env);
 		return (NULL);

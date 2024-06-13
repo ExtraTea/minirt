@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ato_id.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kazuhiro <kazuhiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:44:00 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/12 18:12:18 by kazokada         ###   ########.fr       */
+/*   Updated: 2024/06/14 00:18:51 by kazuhiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	ato_fov(char	*str)
 
 // int main ()
 // {
-// 	char *str = "-111.12a";
+// 	char *str = "0.000000000000";
 // 	if (check_double(str) == true)
 // 		printf("%f\n", ft_atod(str));
 // 	else
