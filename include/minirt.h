@@ -62,6 +62,8 @@ double			is_collide_sphere(t_vec3 cam_pos, t_vec3 ray,
 					t_sphere *sphere, t_vec3 *norm);
 double			is_collide_plane(t_vec3 cam_pos, t_vec3 ray,
 					t_plane *plane, t_vec3 *norm);
+double			is_collide_cylinder(t_vec3 cam_pos, t_vec3 ray,
+					t_cylinder *cyl, t_vec3 *norm);
 
 int				rgb2hex(t_rgb color);
 t_rgb			get_ambient_color(t_ambient *ambient, t_obj *obj);
@@ -73,5 +75,6 @@ double			is_collide_obj2(t_vec3 ray,
 					t_vec3 pos, t_obj *now, t_vec3 *norm);
 double			is_collide_obj(t_vec3 ray,
 					t_environment *env, t_obj *now, t_vec3 *norm);
+
 
 #endif

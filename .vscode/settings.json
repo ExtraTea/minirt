@@ -16,6 +16,7 @@
 		"vector.h": "c",
 		"light.h": "c",
 		"object.h": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"float.h": "c"
 	}
 }

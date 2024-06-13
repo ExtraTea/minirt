@@ -9,8 +9,8 @@ double	is_collide_cylinder2(t_camera cam, t_cylinder *cyl,
 	int		i;
 
 	valid_t = -1.0;
-	i = 0;
-	while (i < 2)
+	i = -1;
+	while (++i < 2)
 	{
 		if (heights[i] < 0)
 			continue ;
@@ -25,7 +25,6 @@ double	is_collide_cylinder2(t_camera cam, t_cylinder *cyl,
 								height_at_collision))));
 			break ;
 		}
-		i++;
 	}
 	return (valid_t);
 }
