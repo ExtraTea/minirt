@@ -6,7 +6,7 @@
 /*   By: kazuhiro <kazuhiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:19:24 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/14 00:40:50 by kazuhiro         ###   ########.fr       */
+/*   Updated: 2024/06/14 01:02:07 by kazuhiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,13 +177,13 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		write(2, "ERROR\ninput correct arg\n", 25);
+		write(2, "\033[31mERROR\ninput correct arg\n\033[0m", 34);
 		return (1);
 	}
 	env = make_env(av[1]);
 	if (!env)
 	{
-		write(2, "ERROR\ninput correct file\n", 26);
+		write(2, "\033[31mERROR\ninput correct file\n\033[0m", 35);
 		return (1);
 	}
 	print_env(env);
