@@ -69,6 +69,9 @@ double	is_collide_obj(t_vec3 ray, t_environment *env, t_obj *now, t_vec3 *norm)
 	else if (now->type == 's')
 		return (is_collide_sphere(env->cam->pos,
 				ray, (t_sphere *)(now->obj), norm));
+	else if (now->type == 'c')
+		return (is_collide_cylinder(env->cam->pos,
+				ray, (t_cylinder *)(now->obj), norm));
 	else
 		return (write(2, "Hi, du****s", 11));
 }
@@ -79,6 +82,9 @@ double	is_collide_obj2(t_vec3 ray, t_vec3 pos, t_obj *now, t_vec3 *norm)
 		return (is_collide_plane(pos, ray, (t_plane *)(now->obj), norm));
 	if (now->type == 's')
 		return (is_collide_sphere(pos, ray, (t_sphere *)(now->obj), norm));
+	if (now->type == 'c')
+		return (is_collide_cylinder(pos,
+				ray, (t_cylinder *)(now->obj), norm));
 	else
 		return (write(2, "Hi, du****s", 11));
 }

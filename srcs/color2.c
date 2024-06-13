@@ -34,6 +34,8 @@ t_rgb	get_diffuse_color(t_vec3 ray_mul, t_environment *env,
 		ret = ((t_plane *)(obj->obj))->color;
 	else if (obj->type == 's')
 		ret = ((t_sphere *)(obj->obj))->color;
+	else if (obj->type == 'c')
+		ret = ((t_cylinder *)(obj->obj))->color;
 	return (get_diffuse_color2(env, norm, ret, point));
 }
 

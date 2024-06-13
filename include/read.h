@@ -2,7 +2,7 @@
 # define READ_H
 
 # include <fcntl.h>
-# include <float.h>
+// # include <float.h>
 # include "minirt.h"
 
 # define COLER_ERROR -1

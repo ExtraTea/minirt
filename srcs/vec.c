@@ -35,6 +35,13 @@ t_vec3	vec3_normalize(t_vec3 a)
 	t_vec3	ret;
 
 	l = sqrt(vec3_dot(a, a));
+	if (fabs(l) < 1e-6)
+	{
+		ret.x = 0;
+		ret.y = 0;
+		ret.z = 0;
+		return (ret);
+	}
 	ret.x = a.x / l;
 	ret.y = a.y / l;
 	ret.z = a.z / l;
