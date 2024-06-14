@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:19:24 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/14 11:41:48 by dtakamat         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:24:46 by kazokada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ t_environment	*str_env_str(t_environment *env, char *str)
 	char	**arr;
 
 	arr = ft_split(str, ' ');
-	// printf("%s\n",arr[0]);
 	if (strcmp("A", arr[0]) == 0)
 		env = set_ambient(env, arr);
 	else if (strcmp("C", arr[0]) == 0)
@@ -141,14 +140,15 @@ t_environment	*make_env_sub(char *file)
 		if (str == NULL)
 			break ;
 		if (*str == '\n')
+		{
+			free(str);
 			continue ;
+		}
 		env = str_env_str(env, str);
 		printf("%s", str);
 		free(str);
 		if (!env)
-		{
 			return (NULL);
-		}
 	}
 	return (env);
 }
@@ -177,21 +177,16 @@ int	bmain(int ac, char **av)
 
 	if (ac != 2)
 	{
-		write(2, "input correct arg\n", 19);
+		write(2, "\033[31mERROR\ninput correct arg\n\033[0m", 34);
 		return (1);
 	}
 	env = make_env(av[1]);
 	if (!env)
 	{
-		write(2, "input correct file\n", 20);
+		write(2, "\033[31mERROR\ninput correct file\n\033[0m", 35);
 		return (1);
 	}
 	print_env(env);
 	free_env(env);
 	return (0);
 }
-
-// __attribute__((destructor))
-// static void destructor() {
-//     system("leaks -q minirt");
-// }

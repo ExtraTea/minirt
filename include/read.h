@@ -39,5 +39,8 @@ bool			check_01(double num);
 bool			check_coler(t_rgb rgb);
 bool			check_norm(t_vec3 vet3);
 bool			check_fov(double num);
+bool			check_vec3(t_vec3 vec3);
+bool			check_vec(char *str);
+bool			check_double_3ele(char **arr);
 
 #endif

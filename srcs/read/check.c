@@ -33,3 +33,28 @@ bool	check_fov(double num)
 		return (false);
 	return (true);
 }
+
+bool	check_vec3(t_vec3 vec3)
+{
+	if (vec3.x == VEC_ERROR || vec3.y == VEC_ERROR || vec3.z == VEC_ERROR)
+		return (false);
+	return (true);
+}
+
+bool	check_vec(char *str)
+{
+	char	**arr;
+	int		i;
+
+	i = 0;
+	arr = ft_split(str, ',');
+	while (arr[i])
+		i ++;
+	if (i != 3 || check_double_3ele(arr) == false)
+	{
+		free_arr(arr);
+		return (false);
+	}
+	free_arr(arr);
+	return (true);
+}
