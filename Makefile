@@ -8,14 +8,17 @@ CFLAGS =  -Wall -Werror -Wextra
 # LIBXFLAGS = -lmlx -lXext -lX11  -lm
 LIBXFLAGS = -lmlx -framework OpenGL -framework AppKit
 
-INCLUDES_DIR = include
-SRCDIR = ./srcs ./srcs/read
+SRCS = srcs/read/ato_id.c srcs/read/ato_rgb.c srcs/read/ato_vec3.c srcs/read/check.c \
+			srcs/read/check2.c srcs/read/free_env.c srcs/read/get_next_line_utils.c \
+			srcs/read/get_next_line.c srcs/read/main.c srcs/read/print_env.c srcs/read/set_str1.c \
+			srcs/read/set_str2.c srcs/read/set_str3.c \
+			srcs/collision.c srcs/collision2.c srcs/color.c srcs/color2.c srcs/main.c srcs/mlx_utils.c \
+			srcs/vec.c srcs/vec2.c srcs/vec3.c
 
 
-SRCS   = $(foreach SRCDIR,$(SRCDIR),$(wildcard $(SRCDIR)/*.c))
 OBJECTS = $(SRCS:.c=.o)
 
-HEADERS = $(wildcard $(INCLUDES_DIR)/*.h)
+HEADERS = include/camera.h include/light.h include/minirt.h include/object.h include/read.h include/vector.h
 
 all: $(NAME)
 
