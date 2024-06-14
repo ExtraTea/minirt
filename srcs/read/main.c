@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:19:24 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/12 19:07:31 by kazokada         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:41:48 by dtakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ t_environment	*make_env_sub(char *file)
 	fd = open(file, O_RDONLY);
 	env = init_env();
 	if (fd < 0 || env == NULL)
-		return (NULL);
+		return (free(env), NULL);
 	while (1)
 	{
 		str = get_next_line(fd);
@@ -163,7 +163,7 @@ t_environment	*make_env(char *str)
 	if (!env)
 		return (NULL);
 	if (env->ambient == NULL || env->cam == NULL
-		|| env->light == NULL || env->obj == NULL)
+		|| env->light == NULL)
 	{
 		free_env(env);
 		return (NULL);
