@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera.h                                           :+:      :+:    :+:   */
+/*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/14 11:25:49 by dtakamat          #+#    #+#             */
-/*   Updated: 2024/06/14 11:25:49 by dtakamat         ###   ########.fr       */
+/*   Created: 2024/06/14 11:25:26 by dtakamat          #+#    #+#             */
+/*   Updated: 2024/06/14 11:25:27 by dtakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAMERA_H
-# define CAMERA_H
+#include "../include/minirt.h"
 
-# include "minirt.h"
-# include "vector.h"
-
-typedef struct s_camera
+double	vec_len(t_vec3 a)
 {
-	t_vec3	pos;
-	t_vec3	ori;
-	int		fov;
-}	t_camera;
-
-#endif
+	return (sqrt(vec3_dot(a, a)));
+}

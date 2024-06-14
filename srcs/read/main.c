@@ -6,7 +6,7 @@
 /*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:19:24 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/14 11:50:17 by kazokada         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:24:46 by kazokada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_environment	*make_env_sub(char *file)
 	fd = open(file, O_RDONLY);
 	env = init_env();
 	if (fd < 0 || env == NULL)
-		return (NULL);
+		return (free(env), NULL);
 	while (1)
 	{
 		str = get_next_line(fd);
@@ -171,7 +171,7 @@ t_environment	*make_env(char *str)
 	return (env);
 }
 
-int	main(int ac, char **av)
+int	bmain(int ac, char **av)
 {
 	t_environment	*env;
 

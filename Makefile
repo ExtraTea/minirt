@@ -1,10 +1,10 @@
-NAME = minirt
+NAME = miniRT
 
 CC = cc
 
 CFLAGS =  -Wall -Werror -Wextra
-CFLAGS += -g -fsanitize=address
-# LIBXFLAGS = -lmlx_Linux -lXext -lX11  -lm
+#CFLAGS += -g -fsanitize=address
+#LIBXFLAGS = -lmlx_Linux -lXext -lX11  -lm
 # LIBXFLAGS = -lmlx -lXext -lX11  -lm
 LIBXFLAGS = -lmlx -framework OpenGL -framework AppKit
 
