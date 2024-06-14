@@ -6,7 +6,7 @@
 /*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:25:12 by dtakamat          #+#    #+#             */
-/*   Updated: 2024/06/14 11:32:23 by dtakamat         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:14:25 by dtakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 void	loop_something(t_mlx_data *data, t_environment *env);
 
-__attribute__((destructor))
-static void destructor() {
-    system("leaks -q miniRT");
-}
 
 int	main(int ac, char **av)
 {
