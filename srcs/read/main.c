@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuhiro <kazuhiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:19:24 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/14 01:02:07 by kazuhiro         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:50:17 by kazokada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ t_environment	*str_env_str(t_environment *env, char *str)
 	char	**arr;
 
 	arr = ft_split(str, ' ');
-	// printf("%s\n",arr[0]);
 	if (strcmp("A", arr[0]) == 0)
 		env = set_ambient(env, arr);
 	else if (strcmp("C", arr[0]) == 0)
@@ -141,14 +140,15 @@ t_environment	*make_env_sub(char *file)
 		if (str == NULL)
 			break ;
 		if (*str == '\n')
+		{
+			free(str);
 			continue ;
+		}
 		env = str_env_str(env, str);
 		printf("%s", str);
 		free(str);
 		if (!env)
-		{
 			return (NULL);
-		}
 	}
 	return (env);
 }
@@ -163,7 +163,7 @@ t_environment	*make_env(char *str)
 	if (!env)
 		return (NULL);
 	if (env->ambient == NULL || env->cam == NULL
-		|| env->light == NULL || env->obj == NULL)
+		|| env->light == NULL)
 	{
 		free_env(env);
 		return (NULL);
@@ -190,8 +190,3 @@ int	main(int ac, char **av)
 	free_env(env);
 	return (0);
 }
-
-// __attribute__((destructor))
-// static void destructor() {
-//     system("leaks -q minirt");
-// }

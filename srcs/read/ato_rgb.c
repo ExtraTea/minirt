@@ -18,9 +18,9 @@ t_rgb	ato_rgb(char *str)
 		free_arr(arr);
 		return (rgb);
 	}
-	rgb.b = ato_color(arr[0]);
+	rgb.r = ato_color(arr[0]);
 	rgb.g = ato_color(arr[1]);
-	rgb.r = ato_color(arr[2]);
+	rgb.b = ato_color(arr[2]);
 	free_arr(arr);
 	return (rgb);
 }

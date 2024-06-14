@@ -3,30 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ato_id.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuhiro <kazuhiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:44:00 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/14 00:18:51 by kazuhiro         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:10:12 by kazokada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/read.h"
 
-double	ft_atod(char	*str)
+double	ft_atod_sub(char *str, long num, int i, int dot)
 {
 	double	result;
-	long	num;
-	int		i;
-	int		dot;
 
-	i = 1;
-	dot = 0;
-	num = 0;
-	if (*str == '-')
-	{
-		str ++;
-		i = -i ;
-	}
 	while (ft_isdigit(*str))
 	{
 		num = (*str - '0') + num * 10;
@@ -46,6 +35,43 @@ double	ft_atod(char	*str)
 	}
 	result = num * i;
 	return (result);
+}
+
+double	ft_atod(char	*str)
+{
+	// double	result;
+	long	num;
+	int		i;
+	int		dot;
+
+	i = 1;
+	dot = 0;
+	num = 0;
+	if (*str == '-')
+	{
+		str ++;
+		i = -i ;
+	}
+	return (ft_atod_sub(str, num, i, dot));
+	// while (ft_isdigit(*str))
+	// {
+	// 	num = (*str - '0') + num * 10;
+	// 	str ++;
+	// }
+	// if (*str == '.')
+	// {
+	// 	str ++;
+	// 	while (ft_isdigit(*str))
+	// 	{
+	// 		num = (*str - '0') + num * 10;
+	// 		str ++;
+	// 		dot ++;
+	// 	}
+	// 	result = num * pow(0.1, dot) * i;
+	// 	return (result);
+	// }
+	// result = num * i;
+	// return (result);
 }
 
 bool	check_double(char *str)
