@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   color2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/14 11:25:09 by dtakamat          #+#    #+#             */
+/*   Updated: 2024/06/14 11:25:10 by dtakamat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minirt.h"
 
 t_rgb	get_diffuse_color2(t_environment *env, t_vec3 norm,
@@ -36,6 +48,8 @@ t_rgb	get_diffuse_color(t_vec3 ray_mul, t_environment *env,
 		ret = ((t_sphere *)(obj->obj))->color;
 	else if (obj->type == 'c')
 		ret = ((t_cylinder *)(obj->obj))->color;
+	else
+		ret = assign_color(0, 0, 0);
 	return (get_diffuse_color2(env, norm, ret, point));
 }
 

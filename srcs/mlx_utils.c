@@ -1,16 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/14 11:25:17 by dtakamat          #+#    #+#             */
+/*   Updated: 2024/06/14 11:26:55 by dtakamat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minirt.h"
 
 int	handle_keypress(int keycode, void *param)
 {
 	if (keycode == 53)
-		mlx_loop_end(param);
-	return (0);
+	{
+		mlx_destroy_image(((t_mlx_data *)param)->mlx,
+			((t_mlx_data *)param)->img.img);
+		mlx_destroy_window(((t_mlx_data *)param)->mlx,
+			((t_mlx_data *)param)->mlx_win);
+		free_env(((t_mlx_data *)param)->env);
+	}
+	exit(0);
 }
 
 int	handle_close(void *param)
 {
-	mlx_loop_end(param);
-	return (0);
+	mlx_destroy_image(((t_mlx_data *)param)->mlx,
+		((t_mlx_data *)param)->img.img);
+	mlx_destroy_window(((t_mlx_data *)param)->mlx,
+		((t_mlx_data *)param)->mlx_win);
+	free_env(((t_mlx_data *)param)->env);
+	exit(0);
 }
 
 void	*ft_mlx_struct_init(void **mlx, t_data_img *img)

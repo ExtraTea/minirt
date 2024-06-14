@@ -4,9 +4,9 @@ CC = cc
 
 CFLAGS =  -Wall -Werror -Wextra
 #CFLAGS += -g -fsanitize=address
-LIBXFLAGS = -lmlx_Linux -lXext -lX11  -lm
+#LIBXFLAGS = -lmlx_Linux -lXext -lX11  -lm
 # LIBXFLAGS = -lmlx -lXext -lX11  -lm
-# LIBXFLAGS = -lmlx -framework OpenGL -framework AppKit
+LIBXFLAGS = -lmlx -framework OpenGL -framework AppKit
 
 INCLUDES_DIR = include
 SRCDIR = ./srcs ./srcs/read

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/14 11:25:43 by dtakamat          #+#    #+#             */
+/*   Updated: 2024/06/14 11:27:37 by dtakamat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -27,13 +39,6 @@ typedef struct s_data_img
 	int		endian;
 }				t_data_img;
 
-typedef struct s_mlx_data
-{
-	void		*mlx;
-	void		*mlx_win;
-	t_data_img	img;
-}	t_mlx_data;
-
 typedef struct s_obj
 {
 	char			type;
@@ -48,6 +53,14 @@ typedef struct s_environment
 	t_camera	*cam;
 	t_obj		*obj;
 }	t_environment;
+
+typedef struct s_mlx_data
+{
+	void			*mlx;
+	void			*mlx_win;
+	t_data_img		img;
+	t_environment	*env;
+}	t_mlx_data;
 
 t_environment	*make_env(char *str);
 void			free_env(t_environment *env);
@@ -75,6 +88,5 @@ double			is_collide_obj2(t_vec3 ray,
 					t_vec3 pos, t_obj *now, t_vec3 *norm);
 double			is_collide_obj(t_vec3 ray,
 					t_environment *env, t_obj *now, t_vec3 *norm);
-
 
 #endif

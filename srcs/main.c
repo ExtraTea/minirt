@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/14 11:25:12 by dtakamat          #+#    #+#             */
+/*   Updated: 2024/06/14 11:26:12 by dtakamat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minirt.h"
 
 void	loop_something(t_mlx_data *data, t_environment *env);
@@ -8,19 +20,18 @@ int	main(int ac, char **av)
 	t_mlx_data		mlx_data;
 
 	mlx_data.mlx_win = ft_mlx_struct_init(&(mlx_data.mlx), &(mlx_data.img));
-	mlx_hook(mlx_data.mlx_win, 2, 1L << 0, handle_keypress, mlx_data.mlx);
-	mlx_hook(mlx_data.mlx_win, 17, 1L << 17, handle_close, mlx_data.mlx);
+	mlx_hook(mlx_data.mlx_win, 2, 1L << 0, handle_keypress, (void *)&mlx_data);
+	mlx_hook(mlx_data.mlx_win, 17, 1L << 17, handle_close, (void *)&mlx_data);
 	if (ac != 2)
 		return (write(2, "input correct arg\n", 19), 1);
 	env = make_env(av[1]);
 	if (!env)
 		return (write(2, "input correct file\n", 20), 1);
-	print_env(env);
+	mlx_data.env = env;
 	loop_something(&mlx_data, env);
 	mlx_loop(mlx_data.mlx);
 	free_env(env);
-	mlx_destroy_image(mlx_data.mlx, mlx_data.img.img);
-	mlx_destroy_window(mlx_data.mlx, mlx_data.mlx_win);
+	exit(0);
 }
 
 void	loop_something(t_mlx_data *data, t_environment *env)
