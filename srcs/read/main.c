@@ -3,70 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:19:24 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/14 12:24:46 by kazokada         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:52:31 by dtakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "../../include/read.h"
-
-void	free_arr(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i ++;
-	}
-	free(arr);
-}
-
-void	free_light(t_light *light)
-{
-	t_light	*del;
-	t_light	*tmp;
-
-	del = light;
-	while (del)
-	{
-		tmp = del->next;
-		free(del);
-		del = tmp;
-	}
-}
-
-void	free_obj(t_obj	*obj)
-{
-	t_obj	*del;
-	t_obj	*tmp;
-
-	del = obj;
-	while (del)
-	{
-		tmp = del->next;
-		free(del->obj);
-		free(del);
-		del = tmp;
-	}
-}
-
-void	free_env(t_environment *env)
-{
-	if (env->light)
-		free_light(env->light);
-	if (env->obj)
-		free_obj(env->obj);
-	if (env->cam)
-		free(env->cam);
-	if (env->ambient)
-		free(env->ambient);
-	free(env);
-}
 
 t_environment	*init_env(void)
 {
@@ -145,7 +90,6 @@ t_environment	*make_env_sub(char *file)
 			continue ;
 		}
 		env = str_env_str(env, str);
-		printf("%s", str);
 		free(str);
 		if (!env)
 			return (NULL);
@@ -169,24 +113,4 @@ t_environment	*make_env(char *str)
 		return (NULL);
 	}
 	return (env);
-}
-
-int	bmain(int ac, char **av)
-{
-	t_environment	*env;
-
-	if (ac != 2)
-	{
-		write(2, "\033[31mERROR\ninput correct arg\n\033[0m", 34);
-		return (1);
-	}
-	env = make_env(av[1]);
-	if (!env)
-	{
-		write(2, "\033[31mERROR\ninput correct file\n\033[0m", 35);
-		return (1);
-	}
-	print_env(env);
-	free_env(env);
-	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuhiro <kazuhiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 17:50:48 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/10 14:11:57 by kazuhiro         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:28:49 by dtakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,20 +116,3 @@ char	*get_next_line(int fd)
 	free(str);
 	return (result);
 }
-
-// int main ()
-// {
-// 	int	fd;
-// 	char *s;
-// 	system("clear");
-// 	fd = open("test.txt", O_RDONLY);
-// 	while (1)
-// 	{
-// 		s = get_next_line(fd);
-// 		if (!s)
-// 			break;
-// 		printf("%s", s);
-// 		free(s);
-// 	}
-// 	close(fd);
-// }

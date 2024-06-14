@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_str2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/14 12:41:17 by dtakamat          #+#    #+#             */
+/*   Updated: 2024/06/14 12:43:25 by dtakamat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/read.h"
 
-t_environment	*set_sphere_sub(t_environment *env, t_obj *obj, char **arr, t_sphere *sp)
+t_environment	*set_sphere_sub(t_environment *env,
+	t_obj *obj, char **arr, t_sphere *sp)
 {
 	t_obj	*tmp;
 
@@ -13,7 +26,8 @@ t_environment	*set_sphere_sub(t_environment *env, t_obj *obj, char **arr, t_sphe
 			tmp = tmp->next;
 		tmp->next = obj;
 	}
-	if (check_coler(sp->color) == false || check_vec3(sp->center) == false || check_double(arr[2]) == false)
+	if (check_coler(sp->color) == false || check_vec3(sp->center) == false
+		|| check_double(arr[2]) == false)
 	{
 		free_env(env);
 		return (NULL);
@@ -25,7 +39,6 @@ t_environment	*set_sphere(t_environment *env, char **arr)
 {
 	int			i;
 	t_obj		*obj;
-	// t_obj		*tmp;
 	t_sphere	*sp;
 
 	i = 0;
@@ -45,22 +58,8 @@ t_environment	*set_sphere(t_environment *env, char **arr)
 	obj->next = NULL;
 	obj->type = 's';
 	return (set_sphere_sub(env, obj, arr, sp));
-	// if (!env->obj)
-	// 	env->obj = obj;
-	// else
-	// {
-	// 	tmp = env->obj;
-	// 	while (tmp->next)
-	// 		tmp = tmp->next;
-	// 	tmp->next = obj;
-	// }
-	// if (check_coler(sp->color) == false || check_vec3(sp->center) == false || check_double(arr[2]) == false)
-	// {
-	// 	free_env(env);
-	// 	return (NULL);
-	// }
-	// return (env);
 }
+
 t_environment	*set_plane_sub(t_environment *env, t_obj *obj, t_plane *pl)
 {
 	t_obj	*tmp;
@@ -74,7 +73,8 @@ t_environment	*set_plane_sub(t_environment *env, t_obj *obj, t_plane *pl)
 			tmp = tmp->next;
 		tmp->next = obj;
 	}
-	if (check_norm(pl->norm) == false || check_coler(pl->color) == false || check_vec3(pl->point) == false)
+	if (check_norm(pl->norm) == false || check_coler(pl->color) == false
+		|| check_vec3(pl->point) == false)
 	{
 		free_env(env);
 		return (NULL);
@@ -86,7 +86,6 @@ t_environment	*set_plane(t_environment *env, char **arr)
 {
 	int		i;
 	t_obj	*obj;
-	// t_obj	*tmp;
 	t_plane	*pl;
 
 	i = 0;
@@ -106,19 +105,4 @@ t_environment	*set_plane(t_environment *env, char **arr)
 	obj->type = 'p';
 	obj->next = NULL;
 	return (set_plane_sub(env, obj, pl));
-	// if (!env->obj)
-	// 	env->obj = obj;
-	// else
-	// {
-	// 	tmp = env->obj;
-	// 	while (tmp->next)
-	// 		tmp = tmp->next;
-	// 	tmp->next = obj;
-	// }
-	// if (check_norm(pl->norm) == false || check_coler(pl->color) == false || check_vec3(pl->point) == false)
-	// {
-	// 	free_env(env);
-	// 	return (NULL);
-	// }
-	// return (env);
 }

@@ -1,29 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ato_vec3.c                                         :+:      :+:    :+:   */
+/*   check2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/14 12:31:01 by dtakamat          #+#    #+#             */
-/*   Updated: 2024/06/14 12:32:32 by dtakamat         ###   ########.fr       */
+/*   Created: 2024/06/14 12:31:44 by dtakamat          #+#    #+#             */
+/*   Updated: 2024/06/14 12:32:27 by dtakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/read.h"
 
-bool	check_double_3ele(char **arr)
+bool	check_norm(t_vec3 vet3)
 {
-	if (check_double(arr[0]) == true && check_double(arr[1]) == true
-		&&check_double(arr[2]) == true)
-		return (true);
-	return (false);
+	if (1 < vet3.x || vet3.x < -1)
+		return (false);
+	if (1 < vet3.y || vet3.y < -1)
+		return (false);
+	if (1 < vet3.z || vet3.z < -1)
+		return (false);
+	if (vet3.x == 0 && vet3.y == 0 && vet3.z == 0)
+		return (false);
+	return (true);
 }
 
-t_vec3	ato_vec3(char *str)
+bool	check_fov(double num)
+{
+	if (num == FOV_ERROR)
+		return (false);
+	return (true);
+}
+
+bool	check_vec3(t_vec3 vec3)
+{
+	if (vec3.x == VEC_ERROR || vec3.y == VEC_ERROR || vec3.z == VEC_ERROR)
+		return (false);
+	return (true);
+}
+
+bool	check_vec(char *str)
 {
 	char	**arr;
-	t_vec3	vec;
 	int		i;
 
 	i = 0;
@@ -32,15 +50,9 @@ t_vec3	ato_vec3(char *str)
 		i ++;
 	if (i != 3 || check_double_3ele(arr) == false)
 	{
-		vec.x = VEC_ERROR;
-		vec.y = VEC_ERROR;
-		vec.z = VEC_ERROR;
 		free_arr(arr);
-		return (vec);
+		return (false);
 	}
-	vec.x = ft_atod(arr[0]);
-	vec.y = ft_atod(arr[1]);
-	vec.z = ft_atod(arr[2]);
 	free_arr(arr);
-	return (vec);
+	return (true);
 }

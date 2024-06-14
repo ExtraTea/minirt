@@ -6,7 +6,7 @@
 /*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 11:25:12 by dtakamat          #+#    #+#             */
-/*   Updated: 2024/06/14 12:14:25 by dtakamat         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:42:23 by dtakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 void	loop_something(t_mlx_data *data, t_environment *env);
 
-
 int	main(int ac, char **av)
 {
 	t_environment	*env;
 	t_mlx_data		mlx_data;
 
 	if (ac != 2)
-		return (write(2, "input correct arg\n", 19), 1);
+		return (write(2, "Error\ninput correct arg\n", 25), 1);
 	env = make_env(av[1]);
 	if (!env)
-		return (write(2, "input correct file\n", 20), 1);
+		return (write(2, "Error\ninput correct file\n", 26), 1);
 	mlx_data.mlx_win = ft_mlx_struct_init(&(mlx_data.mlx), &(mlx_data.img));
 	mlx_hook(mlx_data.mlx_win, 2, 1L << 0, handle_keypress, (void *)&mlx_data);
 	mlx_hook(mlx_data.mlx_win, 17, 1L << 17, handle_close, (void *)&mlx_data);

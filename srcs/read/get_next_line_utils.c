@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuhiro <kazuhiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 17:50:50 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/10 14:12:24 by kazuhiro         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:35:49 by dtakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*free_str(char	*str)
 	free(str);
 	return (NULL);
 }
+
 char	*free_str2(char *str1, char *str2)
 {
 	free(str1);

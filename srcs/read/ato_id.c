@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ato_id.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazokada <kazokada@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dtakamat <dtakamat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:44:00 by kazuhiro          #+#    #+#             */
-/*   Updated: 2024/06/14 12:10:12 by kazokada         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:32:35 by dtakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ double	ft_atod_sub(char *str, long num, int i, int dot)
 
 double	ft_atod(char	*str)
 {
-	// double	result;
 	long	num;
 	int		i;
 	int		dot;
@@ -53,25 +52,6 @@ double	ft_atod(char	*str)
 		i = -i ;
 	}
 	return (ft_atod_sub(str, num, i, dot));
-	// while (ft_isdigit(*str))
-	// {
-	// 	num = (*str - '0') + num * 10;
-	// 	str ++;
-	// }
-	// if (*str == '.')
-	// {
-	// 	str ++;
-	// 	while (ft_isdigit(*str))
-	// 	{
-	// 		num = (*str - '0') + num * 10;
-	// 		str ++;
-	// 		dot ++;
-	// 	}
-	// 	result = num * pow(0.1, dot) * i;
-	// 	return (result);
-	// }
-	// result = num * i;
-	// return (result);
 }
 
 bool	check_double(char *str)
@@ -122,16 +102,3 @@ int	ato_fov(char	*str)
 	}
 	return (i);
 }
-
-// int main ()
-// {
-// 	char *str = "0.000000000000";
-// 	if (check_double(str) == true)
-// 		printf("%f\n", ft_atod(str));
-// 	else
-// 		printf("error\n");
-// }
-// int main ()
-// {
-// 	printf("%d\n", ato_color("256"));
-// }
